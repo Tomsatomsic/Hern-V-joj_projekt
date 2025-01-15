@@ -1,0 +1,221 @@
+[gd_scene load_steps=21 format=3 uid="uid://pb55il2om3p5"]
+
+[ext_resource type="Script" path="res://Scripts/World.gd" id="1_4tq13"]
+[ext_resource type="PackedScene" uid="uid://c7v015vhqsi4w" path="res://Player/Player.tscn" id="2_ubsxl"]
+[ext_resource type="Script" path="res://Scripts/Platform1.gd" id="3_oitkv"]
+[ext_resource type="Texture2D" uid="uid://do64pi55j6ya0" path="res://Scenes/Platform3.png" id="4_725h1"]
+[ext_resource type="Script" path="res://Scripts/Platform2.gd" id="4_bib71"]
+[ext_resource type="PackedScene" uid="uid://btfn41ajylabk" path="res://Scenes/collectable.tscn" id="5_v2o34"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="6_of8rb"]
+[ext_resource type="Script" path="res://Scripts/END.gd" id="7_fjq0t"]
+[ext_resource type="Texture2D" uid="uid://c4n214w0oj5ej" path="res://Scenes/2203_w026_n002_1497b_p1_1497.jpg" id="9_q5m2l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2uca"]
+size = Vector2(63.2912, 66.5)
+
+[sub_resource type="Animation" id="Animation_pta11"]
+resource_name = "move"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-1.7, -0.1, 0, 2.5, 4.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2855, 671), Vector2(3500, 671), Vector2(2870.73, 671), Vector2(3500.73, 671), Vector2(2870.73, 671)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v0din"]
+_data = {
+"move": SubResource("Animation_pta11")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wm728"]
+size = Vector2(281, 86)
+
+[sub_resource type="Animation" id="Animation_hg3t0"]
+resource_name = "moving"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(5, 1037), Vector2(600, 1037), Vector2(5, 1037)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hvtdw"]
+_data = {
+"moving": SubResource("Animation_hg3t0")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65owk"]
+size = Vector2(8247, 302)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjis4"]
+size = Vector2(8349, 182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63g31"]
+size = Vector2(218, 92)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8w2n"]
+size = Vector2(188, 2913.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eev0w"]
+size = Vector2(196, 3041)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_4tq13")
+
+[node name="Player" parent="." instance=ExtResource("2_ubsxl")]
+position = Vector2(-40, 180)
+
+[node name="MovingPlatform1" type="AnimatableBody2D" parent="."]
+position = Vector2(2870.73, 671)
+script = ExtResource("3_oitkv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingPlatform1"]
+position = Vector2(280.27, -0.75)
+scale = Vector2(3.16, 1)
+shape = SubResource("RectangleShape2D_s2uca")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MovingPlatform1"]
+libraries = {
+"": SubResource("AnimationLibrary_v0din")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="MovingPlatform1"]
+position = Vector2(264.27, 42.5)
+scale = Vector2(4.3125, 2.85938)
+texture = ExtResource("4_725h1")
+
+[node name="MovingPlatform2" type="AnimatableBody2D" parent="."]
+position = Vector2(5, 1037)
+script = ExtResource("4_bib71")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingPlatform2"]
+position = Vector2(136.5, 8)
+shape = SubResource("RectangleShape2D_wm728")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MovingPlatform2"]
+libraries = {
+"": SubResource("AnimationLibrary_hvtdw")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="MovingPlatform2"]
+position = Vector2(122.5, 67.5)
+scale = Vector2(4.51563, 3.14063)
+texture = ExtResource("4_725h1")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="UI"]
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 162.0
+offset_bottom = 106.0
+
+[node name="PointsLabel" type="Label" parent="UI/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -5.0
+offset_right = 6.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Coints:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Collectable" parent="." instance=ExtResource("5_v2o34")]
+position = Vector2(1745, 1873)
+
+[node name="Collectable2" parent="." instance=ExtResource("5_v2o34")]
+position = Vector2(5043, 747)
+
+[node name="Collectable3" parent="." instance=ExtResource("5_v2o34")]
+position = Vector2(4946, 1960)
+
+[node name="Collectable4" parent="." instance=ExtResource("5_v2o34")]
+position = Vector2(3141, 556)
+
+[node name="Collectable5" parent="." instance=ExtResource("5_v2o34")]
+position = Vector2(1265, 1123)
+
+[node name="Collectable6" parent="." instance=ExtResource("5_v2o34")]
+position = Vector2(162, 954)
+
+[node name="Pngs" type="Node2D" parent="."]
+
+[node name="GameManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_of8rb")
+
+[node name="END" type="StaticBody2D" parent="."]
+position = Vector2(437, 2886)
+script = ExtResource("7_fjq0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="END"]
+position = Vector2(2453, 23)
+shape = SubResource("RectangleShape2D_65owk")
+
+[node name="Sprite2D" type="Sprite2D" parent="END"]
+position = Vector2(3391.5, 987.5)
+scale = Vector2(4.73828, 1.67188)
+
+[node name="Area2D" type="Area2D" parent="END"]
+position = Vector2(339, 270)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="END/Area2D"]
+position = Vector2(2104.5, -240)
+shape = SubResource("RectangleShape2D_mjis4")
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+position = Vector2(3554, 2343)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(37, 14)
+shape = SubResource("RectangleShape2D_63g31")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+position = Vector2(33.4999, 29.5)
+scale = Vector2(4.04688, 2.67188)
+texture = ExtResource("4_725h1")
+
+[node name="Collectable11" parent="." instance=ExtResource("5_v2o34")]
+position = Vector2(3596, 2191)
+
+[node name="2203W026N0021497bP11497" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(2754, 1675.25)
+scale = Vector2(1.32996, 1.23384)
+texture = ExtResource("9_q5m2l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-843, 1375)
+shape = SubResource("RectangleShape2D_x8w2n")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(6438, 1365.5)
+shape = SubResource("RectangleShape2D_eev0w")
+
+[connection signal="body_entered" from="END/Area2D" to="END" method="_on_area_2d_body_entered"]

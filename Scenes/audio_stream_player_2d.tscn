@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bexlra54mk6om"]
+
+[ext_resource type="AudioStream" uid="uid://t3irv0yhfmhx" path="res://wind-blowing-trees-in-forest-ivo-vicic-1-02-22.mp3" id="1_u12bw"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_u12bw")
+volume_db = -15.0
+autoplay = true

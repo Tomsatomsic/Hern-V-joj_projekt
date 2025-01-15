@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://4sit83h6hgu2"]
+
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_njwta"]
+[ext_resource type="Texture2D" uid="uid://blvmwmovyolh2" path="res://images-removebg-preview.png" id="2_dxufi"]
+[ext_resource type="Texture2D" uid="uid://8nn6n16083at" path="res://png-clipart-button-computer-icons-exit-angle-rectangle-removebg-preview.png" id="3_ltlea"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_njwta")
+
+[node name="Start" type="TextureButton" parent="."]
+offset_left = 135.0
+offset_top = 223.0
+offset_right = 436.0
+offset_bottom = 465.0
+action_mode = 0
+texture_normal = ExtResource("2_dxufi")
+
+[node name="Quit" type="TextureButton" parent="."]
+offset_left = 550.0
+offset_top = 65.0
+offset_right = 1091.0
+offset_bottom = 526.0
+texture_normal = ExtResource("3_ltlea")
+stretch_mode = 3
+
+[node name="MenuBackground" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(577, 323)
+scale = Vector2(2.54, 1.42889)
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
